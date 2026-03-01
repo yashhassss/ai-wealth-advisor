@@ -1,0 +1,312 @@
+AI-Powered Wealth Advisor Project To-Do List
+Project Setup
+[ ] Initialize project repository and set up folder structure (frontend/, backend/, tests/ directories).
+[ ] Configure development environments (install Node.js, Python; set up virtual environment for backend).
+[ ] Install project dependencies (React, React Router, Supabase JS, chart library on frontend; FastAPI or Flask and Supabase Python SDK on backend).
+[ ] Set up version control (Git) and configure .gitignore (exclude .env, API keys, etc.).
+[ ] Set up Supabase project:
+[ ] Create a Supabase account and project.
+[ ] Configure authentication providers (email/password) in Supabase Auth settings.
+[ ] Create initial database schema (tables: users, portfolios, transactions, recommendations, education_content, chat_history).
+[ ] Enable Row Level Security (RLS) and define policies (each user can only read/modify their own data).
+[ ] Configure environment variables (.env) for Supabase URL/keys, market data API key, LLM API key, and other secrets.
+[ ] Set up code quality tools (ESLint/Prettier for frontend, Flake8/Black for backend) and configure CI to run linting.
+[ ] Bootstrap frontend application (e.g. Create React App or Vite).
+[ ] Bootstrap backend application (FastAPI or Flask skeleton with a basic health-check endpoint).
+[ ] Set up CORS on backend to allow requests from the frontend domain.
+[ ] Install and configure Supabase client libraries (@supabase/supabase-js in frontend, supabase Python client in backend).
+[ ] Create initial test pages and endpoints (e.g., a “Hello World” page and API endpoint) to verify connectivity between frontend and backend.
+UI/UX Design & Prototyping
+[ ] Sketch user flows and wireframes for key pages: Landing, Sign Up, Login, Profile, Dashboard, Chatbot, Recommendations, Education.
+[ ] Choose a UI component library or design system (e.g. Material UI, Ant Design, Chakra UI) or define custom theme/styles.
+[ ] Define color palette, typography, and overall branding style.
+[ ] Design navigation structure (header, sidebar, footer) and determine page layouts.
+[ ] Create mockups for forms (login, signup, profile settings) and content pages (dashboards, chat interface, education).
+[ ] Plan responsive layouts for desktop, tablet, and mobile breakpoints.
+[ ] Ensure accessibility guidelines in design (sufficient color contrast, keyboard navigation, ARIA labels where needed).
+Frontend Development (React)
+[ ] Authentication Pages (Supabase Auth):
+[ ] Build Sign Up page (collect email, password; validate input formats and show errors).
+[ ] Build Login page (authenticate via Supabase; handle invalid credentials error).
+[ ] Build Password Reset / Forgot Password flow using Supabase.
+[ ] Global Components:
+[ ] Create Header/NavBar and Sidebar components with links to Dashboard, Chat, Profile, Recommendations, Education, Logout.
+[ ] Implement responsive Hamburger menu for mobile.
+[ ] User Session Management:
+[ ] Implement user context or global state to store authentication state and user info.
+[ ] Store session securely (using Supabase’s session or HttpOnly cookies).
+[ ] Profile Page:
+[ ] Display user information (name, email, risk tolerance, investment goals).
+[ ] Implement edit functionality to update profile fields; include form validation (e.g. required fields, valid email).
+[ ] Dashboard Page:
+[ ] Fetch and display summary of user portfolio (total value, total gains/losses).
+[ ] Display a list of holdings with current values.
+[ ] Show key market indices or a watchlist with real-time updates.
+[ ] Display alert if portfolio is empty (first-time user).
+[ ] Data Visualization Components:
+[ ] Implement line chart for portfolio value over time.
+[ ] Implement pie or donut chart for asset allocation breakdown.
+[ ] Implement bar chart for monthly returns or performance comparison.
+[ ] Ensure charts update when data changes (e.g., after a transaction).
+[ ] Recommendations Page:
+[ ] Build UI to list personalized investment recommendations fetched from the backend.
+[ ] Show reasoning/rationale text for each recommendation.
+[ ] Allow users to dismiss or save recommendations (optional).
+[ ] Chatbot Page:
+[ ] Design chat interface (message history window, text input, send button).
+[ ] On submit, send user message to backend chat endpoint and display AI responses.
+[ ] Show loading/typing indicator while waiting for AI reply.
+[ ] Handle and display errors (e.g., if backend fails).
+[ ] Education Page:
+[ ] List educational resources (articles, videos) on investing topics.
+[ ] Implement category filters or search within education content.
+[ ] Each content item should link to detailed view or open the resource.
+[ ] Routing:
+[ ] Set up React Router with routes for all pages (including protected routes that redirect to login if not authenticated).
+[ ] Forms and Validation:
+[ ] Add client-side validation on all forms (check required fields, valid formats, max lengths).
+[ ] Show user-friendly error messages for validation failures.
+[ ] Real-Time Updates:
+[ ] Subscribe to real-time data (via Supabase or WebSockets) to update portfolio values or stock prices in the UI.
+[ ] Error/Loading States:
+[ ] Implement loading indicators and error messages for asynchronous calls (data fetches).
+[ ] Handle empty states (no data) by showing appropriate messages or placeholders.
+[ ] Responsive & Accessibility:
+[ ] Test and adjust UI for different screen sizes (mobile, tablet).
+[ ] Add accessibility attributes (aria-label, semantic HTML elements) to improve UX for screen readers.
+Backend & API Development (Python)
+[ ] Setup:
+[ ] Set up FastAPI or Flask project structure (create app, models, routers/services).
+[ ] Configure Python environment, install required libraries (fastapi/flask, pydantic, supabase, httpx, etc.).
+[ ] Authentication Middleware:
+[ ] Implement middleware or dependency that validates Supabase JWT on protected routes.
+[ ] Return 401 Unauthorized if token is missing or invalid.
+[ ] API Endpoints:
+[ ] Profile:
+[ ] GET /profile – return authenticated user’s profile data.
+[ ] PATCH /profile – allow user to update name, risk tolerance, etc.; validate input.
+[ ] Portfolio:
+[ ] GET /portfolio – return current holdings and their current values for the user.
+[ ] POST /portfolio/transaction – record a buy or sell transaction (symbol, shares, price, type).
+[ ] Transactions:
+[ ] GET /transactions – return list of past transactions for the user.
+[ ] POST /transactions – (if separate from portfolio endpoint) allow manual entry of transactions.
+[ ] Recommendations:
+[ ] GET /recommendations – compute or fetch and return personalized recommendations for the user.
+[ ] Education Content:
+[ ] GET /education – return list of available educational content items.
+[ ] POST /education – (protected/admin) add new content item.
+[ ] Chatbot:
+[ ] POST /chat – accept a user question, call the LLM, and return AI-generated answer.
+[ ] Market Data:
+[ ] GET /market-data?symbol=XYZ – fetch and return real-time stock price and basic info for given symbol.
+[ ] Supabase Integration:
+[ ] Connect to Supabase database (using the Supabase Python client or direct PostgreSQL connection).
+[ ] Implement CRUD operations for each table (users, portfolios, transactions, etc.) within endpoints.
+[ ] Market Data Integration:
+[ ] Choose and configure a stock data API (Alpha Vantage, IEX Cloud, Yahoo Finance).
+[ ] Write service code to fetch current stock prices and handle API keys securely.
+[ ] If streaming data is needed, implement WebSocket or Server-Sent Events (SSE) to push updates.
+[ ] Implement caching of market data (in-memory or Redis) to respect API rate limits.
+[ ] Recommendation Engine Logic:
+[ ] Fetch user’s profile (risk level, goals) and portfolio data.
+[ ] Apply algorithm or model to generate a list of recommended assets or asset classes.
+[ ] (Optional) Integrate a simple ML model or rules engine for recommendations.
+[ ] Store generated recommendations and rationale in the database (with user_id).
+[ ] LLM (AI) Integration:
+[ ] Install and configure OpenAI (or another LLM) SDK with API key.
+[ ] In /chat endpoint, send user message to LLM with the appropriate prompt and system instructions.
+[ ] Parse and format the model’s response to return to the client.
+[ ] Input Validation & Error Handling:
+[ ] Validate all incoming request data (e.g., ticker symbols exist, numeric fields are in range).
+[ ] Return proper HTTP status codes for errors (400 Bad Request for validation, 401 Unauthorized, 500 Internal Server Error).
+[ ] Handle edge cases (user not found, symbol not found, external API timeout) gracefully and log errors.
+[ ] Security on Server:
+[ ] Sanitize inputs to prevent SQL injection (use prepared statements/ORM).
+[ ] Enforce HTTPS (redirect if necessary, especially in production).
+[ ] Implement rate limiting on APIs (e.g., max requests per minute) to prevent abuse.
+[ ] Testing (Backend):
+[ ] Write unit tests for business logic (recommendation calculations, data processing).
+[ ] Write tests for each API endpoint using a framework (pytest or Postman).
+[ ] Test authentication flows (accessing protected endpoints without token).
+Data & Database Schema
+[ ] Database Tables:
+[ ] users: id (uuid, primary key), email, name, risk_tolerance, created_at.
+[ ] portfolios: id, user_id (fk to users), symbol, quantity, avg_cost, created_at.
+[ ] transactions: id, user_id (fk), symbol, type (buy/sell), shares, price, timestamp.
+[ ] recommendations: id, user_id (fk), recommendation_text, rationale, date_generated.
+[ ] education_content: id, title, category, url, description.
+[ ] chat_history: id, user_id (fk), messages (JSON or separate table for messages), timestamp.
+[ ] Use Supabase dashboard or SQL migrations to create tables and fields.
+[ ] Set up foreign key relationships and indexes (e.g., index portfolios(user_id), transactions(user_id)).
+[ ] Configure Supabase Row Level Security (RLS) policies:
+[ ] Allow each user to SELECT/INSERT/UPDATE only on rows where user_id = auth.uid.
+[ ] (Optional) Create database triggers/functions (e.g., auto-update portfolio value after a transaction).
+[ ] Seed database with test data (dummy users, sample portfolios and transactions) for development.
+[ ] Enable database backups or point-in-time recovery (PITR) for production.
+AI Chatbot Integration
+[ ] API Key & Client Setup:
+[ ] Securely store LLM API key (e.g., OpenAI) in environment variables.
+[ ] Install LLM client library (openai or similar).
+[ ] Prompt Engineering:
+[ ] Write a system prompt instructing the AI to act as a personalized wealth advisor.
+[ ] Include guidelines for tone (friendly, clear) and compliance (no explicit buy/sell orders).
+[ ] Conversation Context:
+[ ] Design how to include conversation history or relevant user data in each API call (to maintain context).
+[ ] Implement logic to trim or summarize older messages to fit token limits.
+[ ] Personalization:
+[ ] Include user’s profile details (risk tolerance, goals) in chat prompts to tailor responses.
+[ ] Possibly include current portfolio summary or recent market data.
+[ ] Response Handling:
+[ ] Sanitize and validate AI outputs (remove or correct any inappropriate content).
+[ ] Ensure AI does not give specific buy/sell commands (stick to general advice and education).
+[ ] Error/Fallback:
+[ ] If the LLM API fails (timeout or error), return a friendly fallback message to the user.
+[ ] Log errors for debugging.
+[ ] Testing:
+[ ] Test the chatbot with various queries (stock info, investing concepts, portfolio questions).
+[ ] Validate that responses are sensible and within scope.
+[ ] (Optional) Store chat messages in the chat_history table for user support and later analysis.
+[ ] Monitor usage/cost of LLM API and handle any rate limits.
+Recommendation Engine
+[ ] Define Strategy:
+[ ] Determine criteria for recommendations (risk level, asset allocation rules, trending sectors, etc.).
+[ ] Choose whether to use static rules, heuristics, or a basic ML model.
+[ ] Algorithm Implementation:
+[ ] Use user’s risk profile and existing portfolio to avoid recommending overexposure.
+[ ] Use market data (volatility, trends) to influence suggestions.
+[ ] Generate a ranked list of recommended stocks, ETFs, or asset classes.
+[ ] Endpoint:
+[ ] Create GET /recommendations endpoint (optionally POST /recommendations/generate) to return recommendations.
+[ ] If computation is heavy, consider caching results per user for a session.
+[ ] Rationale:
+[ ] For each recommendation, generate an explanation (e.g., “This diversifies your portfolio into technology”).
+[ ] Return recommendations along with reasons.
+[ ] Constraints & Validation:
+[ ] Ensure recommendations align with user’s risk level (no overly risky picks for conservative users).
+[ ] Avoid recommending assets already held in large proportion.
+[ ] Logging:
+[ ] Store each recommendation event in the database (user_id, recommendations, timestamp).
+[ ] Testing:
+[ ] Test with different user profiles to ensure recommendations make sense (simulate aggressive vs. conservative users).
+Dashboard & Data Visualization
+[ ] Charting Library:
+[ ] Choose a charting library (Recharts, Chart.js, etc.) and install it on frontend.
+[ ] Portfolio Performance Chart:
+[ ] Implement a line chart showing portfolio value over time (data points per day/week).
+[ ] Create backend endpoint (e.g., GET /portfolio-history) that returns historical portfolio values.
+[ ] Asset Allocation Chart:
+[ ] Implement a pie or donut chart showing current portfolio allocation by asset class or sector.
+[ ] Provide endpoint or compute allocation data on frontend from portfolio holdings.
+[ ] Monthly Returns Chart:
+[ ] Implement a bar chart comparing returns by month or by asset.
+[ ] Ensure data is aggregated appropriately in an endpoint (e.g., GET /monthly-returns).
+[ ] Real-Time Stock Charts (Optional):
+[ ] If desired, implement candlestick or line charts for individual stock prices (fetch data via API).
+[ ] Interactivity:
+[ ] Add tooltips, legends, and hover effects for clarity.
+[ ] Allow toggling data series on/off if needed.
+[ ] Responsiveness:
+[ ] Ensure charts resize properly on different screen sizes.
+[ ] Handle edge cases (no data or loading) with appropriate placeholders.
+[ ] Testing:
+[ ] Test charts with sample data (empty, minimal, large) to ensure they render correctly.
+Education Content Integration
+[ ] Content Gathering:
+[ ] Curate or write a set of investment education materials (articles, videos, infographics).
+[ ] Classify each item by category (e.g., Stocks, Bonds, Portfolio Basics) and difficulty level.
+[ ] Database:
+[ ] Add entries to education_content table with metadata (title, category, URL/link, summary).
+[ ] Admin Interface:
+[ ] Implement a protected interface or API for adding/editing/deleting content (only for admin users).
+[ ] Frontend Display:
+[ ] Show list of educational items in the Education page with category filters or search.
+[ ] Each item should link to a detail view or open the content (e.g., embedded video or external link).
+[ ] Optional Interactivity:
+[ ] (Optional) Embed quizzes or interactive modules related to content (if time allows).
+[ ] Maintenance:
+[ ] Ensure content is kept up to date; schedule reviews of financial info periodically.
+Security & Compliance
+[ ] HTTPS:
+[ ] Enforce HTTPS for all connections (obtain SSL certificates for production domains).
+[ ] Auth & Access Control:
+[ ] Require authentication on all sensitive routes; validate JWT on backend.
+[ ] Ensure Supabase RLS is correctly set (users can only access their own data).
+[ ] Input Sanitization:
+[ ] Sanitize all user inputs on frontend and backend to prevent XSS and SQL injection.
+[ ] CSRF Protection:
+[ ] If using cookies, implement CSRF tokens or set SameSite policies.
+[ ] Secure Storage:
+[ ] Store API keys, secrets, tokens only in environment variables (never commit to repo).
+[ ] Rate Limiting:
+[ ] Implement rate-limiting on login/signup endpoints and chatbot to prevent abuse.
+[ ] Security Headers:
+[ ] Configure HTTP headers (Content Security Policy, X-Frame-Options, etc.) in backend.
+[ ] Data Encryption:
+[ ] Ensure Supabase encrypts data at rest (default).
+[ ] Use HTTPS/TLS for data in transit.
+[ ] Authentication Hygiene:
+[ ] Enforce strong password requirements.
+[ ] Enable email verification on sign-up.
+[ ] (Optional) Plan for Multi-Factor Authentication (MFA) if high security needed.
+[ ] User Data Privacy:
+[ ] Provide a Privacy Policy and Terms of Service (link in footer).
+[ ] Include a clear “Not financial advice” disclaimer on relevant pages.
+[ ] Implement functionality for users to delete their account/data (to comply with GDPR).
+[ ] Logging & Monitoring:
+[ ] Log security-relevant events (failed logins, suspicious activity).
+[ ] Set up monitoring/alerts for abnormal behavior.
+[ ] Dependency Auditing:
+[ ] Regularly run security audits on dependencies (npm audit, pip-audit).
+[ ] Regulatory Compliance:
+[ ] Review basic FINRA/SEC guidelines and ensure the app’s advice wording stays compliant (use disclaimers).
+Testing & Quality Assurance
+[ ] Frontend Tests:
+[ ] Write unit tests for React components (using Jest/React Testing Library).
+[ ] Test form validation, conditional rendering (e.g., showing errors).
+[ ] Backend Tests:
+[ ] Write unit tests for backend business logic (recommendation functions, data calculations).
+[ ] Write integration tests for API endpoints (testing authentication, data validation).
+[ ] End-to-End Tests:
+[ ] Set up E2E tests (Cypress or Selenium) to simulate user flows: signup/login, profile update, making a trade, chatting with AI, viewing charts.
+[ ] Cross-Browser Testing:
+[ ] Test the web app on multiple browsers (Chrome, Firefox, Safari, Edge) and devices.
+[ ] Performance Testing:
+[ ] Conduct load testing on backend APIs (simulate multiple users, high-frequency chat queries).
+[ ] Test frontend performance (chart rendering time, page load).
+[ ] Accessibility Testing:
+[ ] Use tools (axe, Lighthouse) to audit and fix accessibility issues.
+[ ] Security Testing:
+[ ] Perform basic penetration tests (try SQL injection in forms, XSS in inputs).
+[ ] Test Data:
+[ ] Create test cases and test data sets for consistent testing.
+[ ] Continuous Integration:
+[ ] Integrate automated tests into CI pipeline (run tests on each PR/commit).
+[ ] Bug Fixing:
+[ ] Triage and fix bugs found during testing and user feedback.
+Deployment & DevOps
+[ ] Production Environment:
+[ ] Create a production Supabase project with the same schema and RLS policies.
+[ ] Configure production environment variables (Supabase keys, API keys) securely on deployment platform.
+[ ] Hosting:
+[ ] Frontend: Set up hosting (Netlify, Vercel, or other) for the React app; configure build and deployment.
+[ ] Backend: Set up hosting (Heroku, AWS, Azure, or container service) for the API; configure CI/CD.
+[ ] CI/CD Pipeline:
+[ ] Configure GitHub Actions or similar to run lint/tests and deploy on merge to main.
+[ ] Database Migration:
+[ ] Apply database migrations or use Supabase project push to create tables in production.
+[ ] Domain & SSL:
+[ ] Configure custom domain(s) and SSL certificates for frontend and backend.
+[ ] Monitoring & Logging:
+[ ] Integrate error monitoring (e.g., Sentry) and application logging in production.
+[ ] Set up uptime monitoring.
+[ ] Backups:
+[ ] Ensure daily database backups are enabled (Supabase Pro has built-in; consider PITR for safety).
+[ ] Post-Deployment Testing:
+[ ] Perform full end-to-end tests in the production environment (smoke tests).
+[ ] Performance & Scaling:
+[ ] Monitor performance; plan for scaling (e.g., increase DB resources or API instances).
+[ ] Documentation:
+[ ] Write or update README with deployment steps, environment setup, and support contacts.
+[ ] Launch:
+[ ] Announce launch to stakeholders; gather user feedback for future iterations.
